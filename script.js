@@ -307,26 +307,29 @@ function renderMessage(message) {
 function renderCards(courses, date, city, radius) {
   const dateText = date ? new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'your date';
 
-  const cardsHtml = courses.map((course) => `
-    <article class="card">
-      <span class="tag ${tagMap[course.tag].class}">${tagMap[course.tag].label}</span>
-      <h3>${course.name}</h3>
-      <p>${course.city} · ${course.vibe}</p>
-      <div class="course-meta">
-        <span class="badge">${course.distance} mi away</span>
-        <span class="badge">Rated ${course.rating.toFixed(1)}/5</span>
-        <span class="badge">Rack rate: $${course.price}</span>
-      </div>
-      <div class="row">
-        <div>
-          <div class="price">${course.golfNowPrice ? `$${course.golfNowPrice}` : 'GolfNow rate'}</div>
-          <div class="subtext">Best GolfNow price for ${dateText}</div>
+  const cardsHtml = courses.map((course) => {
+    const golfNowUrl = buildGolfNowUrl(course);
+    return `
+      <article class="card">
+        <span class="tag ${tagMap[course.tag].class}">${tagMap[course.tag].label}</span>
+        <h3>${course.name}</h3>
+        <p>${course.city} · ${course.vibe}</p>
+        <div class="course-meta">
+          <span class="badge">${course.distance} mi away</span>
+          <span class="badge">Rated ${course.rating.toFixed(1)}/5</span>
+          <span class="badge">Rack rate: $${course.price}</span>
         </div>
-        <a class="primary-link" href="${course.url}" target="_blank" rel="noreferrer">Book on GolfNow →</a>
-      </div>
-      <button class="secondary" onclick="window.open('${course.url}', '_blank')">View tee times</button>
-    </article>
-  `).join('');
+        <div class="row">
+          <div>
+            <div class="price">${course.golfNowPrice ? `$${course.golfNowPrice}` : 'GolfNow rate'}</div>
+            <div class="subtext">Best GolfNow price for ${dateText}</div>
+          </div>
+          <a class="primary-link" href="${golfNowUrl}" target="_blank" rel="noreferrer">Book on GolfNow →</a>
+        </div>
+        <button class="secondary" onclick="window.open('${golfNowUrl}', '_blank')">View tee times</button>
+      </article>
+    `;
+  }).join('');
 
   resultsSection.innerHTML = `
     <div class="cards-grid">
@@ -349,4 +352,9 @@ function haversineMiles(lat1, lon1, lat2, lon2) {
 
 function toRad(deg) {
   return deg * (Math.PI / 180);
+}
+
+function buildGolfNowUrl(course) {
+  const query = encodeURIComponent(`${course.name} ${course.city}`);
+  return `https://www.golfnow.com/tee-times/search?searchString=${query}`;
 }
