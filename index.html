@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golpher | Find Your Next Round</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Golpher</p>
+        <h1>Discover the best golf courses near you.</h1>
+        <p class="lede">Pick a date, drop your location, and get a curated list of where to play next: budget-friendly, mid-tier, premium, and a hidden gem — all with the best NowGolf deal.</p>
+        <form id="searchForm" class="search-form">
+          <div class="field">
+            <label for="playDate">Date</label>
+            <input type="date" id="playDate" name="playDate" required />
+          </div>
+          <div class="field">
+            <label for="location">City or ZIP / Postcode</label>
+            <input type="text" id="location" name="location" placeholder="e.g., 10001 or Austin" required />
+          </div>
+          <div class="field">
+            <label for="radius">Radius</label>
+            <select id="radius" name="radius" required>
+              <option value="10">Within 10 miles</option>
+              <option value="25">Within 25 miles</option>
+              <option value="50">Within 50 miles</option>
+            </select>
+          </div>
+          <button type="submit" class="primary">Find my round</button>
+        </form>
+      </div>
+      <div class="hero__card">
+        <div class="hero__badge">Curated picks</div>
+        <h2>Budget. Mid. Best. Hidden gem.</h2>
+        <p>Smart categories that make booking easy, plus verified NowGolf pricing links.</p>
+        <ul class="pill-list">
+          <li>Handpicked course data</li>
+          <li>Distance-aware filtering</li>
+          <li>One-click NowGolf booking</li>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <section id="results" class="results">
+        <div class="placeholder">
+          <div class="glow"></div>
+          <h3>Set your date and location to see curated courses.</h3>
+          <p>We surface four options tailored to your radius: a budget steal, a mid-range pick, the top-rated track, and a hidden gem.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for golfers who love discovering new tracks. Powered by Golpher + NowGolf.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
