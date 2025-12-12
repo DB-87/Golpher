@@ -44,7 +44,8 @@ body {
   gap: 12px;
   width: min(900px, 100%);
   align-items: center;
-  justify-items: stretch;
+  justify-items: center;
+  justify-content: center;
 }
 
 .search-form input,
@@ -133,6 +134,7 @@ button.secondary:hover {
   gap: 16px;
   width: min(960px, 100%);
   margin: 0 auto;
+  justify-items: center;
 }
 
 .card {
@@ -142,14 +144,15 @@ button.secondary:hover {
   border-radius: var(--radius);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
   padding: 18px 16px 16px;
-  text-align: left;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 }
 
 .tag {
-  align-self: flex-start;
+  align-self: center;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
@@ -178,6 +181,7 @@ button.secondary:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  justify-content: center;
 }
 
 .badge {
@@ -191,7 +195,7 @@ button.secondary:hover {
 
 .row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
