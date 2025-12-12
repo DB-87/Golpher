@@ -39,11 +39,6 @@ body {
   margin-bottom: 24px;
 }
 
-.logo-mark {
-  width: 240px;
-  max-width: 80vw;
-}
-
 .wordmark {
   margin: 0;
   font-size: clamp(36px, 6vw, 48px);
