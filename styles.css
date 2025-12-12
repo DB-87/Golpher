@@ -112,6 +112,11 @@ button.primary {
   grid-column: 1 / -1;
   justify-self: center;
   width: 200px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button.primary:hover {
