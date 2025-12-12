@@ -31,22 +31,6 @@ body {
   text-align: center;
 }
 
-.masthead {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.wordmark {
-  margin: 0;
-  font-size: clamp(36px, 6vw, 48px);
-  font-weight: 800;
-  color: #77db00;
-  letter-spacing: 0.01em;
-}
-
 .content {
   display: flex;
   flex-direction: column;
