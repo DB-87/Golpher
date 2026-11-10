@@ -329,7 +329,7 @@ function ring(score,c,size=74){
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${size*.28}">${score}</text></svg>`;
 }
 
-const VIEWS=[{id:"overview",label:"Overview",c:"#d9b46a"},...IDEAS.map(i=>({id:i.id,label:i.name,c:i.color,score:i.score})),{id:"workflow",label:"Launch Workflow",c:"#2dd4bf"},{id:"method",label:"Method & Sources",c:"#818cf8"}];
+const VIEWS=[{id:"overview",label:"Overview",c:"#d9b46a"},...IDEAS.map(i=>({id:i.id,label:i.name,c:i.color,score:i.score})),{id:"workflow",label:"Launch Workflow",c:"#2dd4bf"},{id:"radar",label:"Research Radar",c:"#84cc16"},{id:"method",label:"Method & Sources",c:"#818cf8"}];
 
 function renderTabs(cur){
   document.getElementById("tabs").innerHTML=VIEWS.map(v=>`<a class="tab ${v.score!==undefined&&v.score<50?'dim':''}" href="#${v.id}" style="--c:${v.c}" ${v.id===cur?'aria-current="page"':''}><span class="dot"></span>${esc(v.label)}${v.score!==undefined?`<span class="sc">${v.score}</span>`:''}</a>`).join("");
@@ -416,6 +416,47 @@ function workflow(){
   </section>`;
 }
 
+const RADAR=[
+ {cat:"AI startup & side-hustle ideas",c:"#38bdf8",items:[
+  ["Greg Isenberg · Startup Ideas Podcast","Tiny AI-agent startups, vertical agent wrappers, outcome pricing","Tracked"],
+  ["Chris Koerner · The Koerner Office","Low-cost local-business AI offers, copy-a-model playbooks","Tracked"],
+  ["My First Million (Sam Parr & Shaan Puri)","Idea teardowns and real revenue numbers from niche businesses","New"],
+  ["Starter Story","Founder case studies with revenue, costs and tools","New"],
+  ["Dan Koe","One-person business with AI, content-led distribution","New"]]},
+ {cat:"AI automation & agents (builders)",c:"#a78bfa",items:[
+  ["Liam Ottley","AI automation agency model: offers, pricing, selling to non-technical SMEs","New"],
+  ["Nick Saraev","Make/n8n builds and agency operations; practical system walkthroughs","New"],
+  ["Nate Herk","n8n AI-agent tutorials to copy for delivery builds","New"],
+  ["Kirk Kodre · KVK Automates","Packaging ‘AI employees’ for SMEs at higher ticket","New"],
+  ["Authority Hacker Podcast","AI workflows for SEO and content businesses","New"]]},
+ {cat:"Boring businesses & acquisitions",c:"#fbbf24",items:[
+  ["Codie Sanchez · Contrarian Thinking","Boring businesses + AI upgrades, buy-don’t-build","Tracked"],
+  ["Nick Huber · Sweaty Startup","Local service businesses, operations, hiring","New"],
+  ["Acquiring Minds","Interviews with people who bought small businesses","New"],
+  ["JackQuisitions","Small-business buying newsletter and podcast","New"],
+  ["Alex Hormozi","Offer design, pricing and guarantees (useful for every model here)","New"]]},
+ {cat:"UK lens",c:"#f472b6",items:[
+  ["The Calum Johnson Show","UK host; AI agents and Claude workflows for non-technical founders","Tracked"],
+  ["The Diary of a CEO","UK interviews; Koerner’s £400-startups episode","New"],
+  ["Property Industry Eye / Estate Agent Today","UK property trade press: lettings AI adoption, regulation","New"],
+  ["AAT Comment & ICB news","UK bookkeeping trade press: MTD rollout, AML","New"]]}
+];
+const QUEUE=[
+ ["Boring-business buy + AI upgrade","Acquire a small UK service firm (cleaning, MOT, lettings book) and automate its admin","Sanchez, Huber, Acquiring Minds"],
+ ["AI ‘employee’ packages for SMEs","Fixed-scope AI admin/inbox/quoting assistant on a monthly fee","KVK Automates, Liam Ottley"],
+ ["AI search visibility (AEO) for local firms","Get local businesses cited in ChatGPT / Google AI answers","Authority Hacker, Isenberg"],
+ ["YouTube channel management for businesses","Done-for-you video repurposing for SMEs (not faceless ad-farm channels)","Agency niche guides"],
+ ["Quote & estimate agent for trades","AI turns photos + notes into priced quotes in minutes","Koerner, Nick Huber"]
+];
+function radar(){
+  return `<section class="view">
+  <div><div class="eyebrow">Wider net</div><h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:6px">Research Radar</h2><p class="small" style="max-width:70ch">Creators and publications to mine for new models, grouped by what they’re best for. “Tracked” sources fed the current scores; “New” ones are next to mine. Use the <span class="mono">/score-business-idea</span> skill on anything promising.</p></div>
+  <div class="two">${RADAR.map(g=>`<div class="panel" style="--c:${g.c};border-top:3px solid ${g.c}"><h3>${esc(g.cat)}</h3><p class="sub">${g.items.length} sources</p><div style="display:flex;flex-direction:column;gap:10px">${g.items.map(([n,w,t])=>`<div class="niche" style="--c:${g.c}"><b>${esc(n)} <span class="pill ${t==="Tracked"?"g":"a"}" style="margin-left:6px">${t}</span></b><span>${esc(w)}</span></div>`).join("")}</div></div>`).join("")}</div>
+  <div class="panel" style="--c:#84cc16"><h3>Idea queue · not yet scored</h3><p class="sub">Candidates surfaced from the wider net. Score each before spending time on it.</p>
+   <table><tr><th>Idea</th><th>What it is</th><th style="text-align:right">Seen on</th></tr>${QUEUE.map(([a,b,c])=>`<tr><td><b>${esc(a)}</b></td><td style="text-align:left;font-family:var(--body);white-space:normal">${esc(b)}</td><td style="font-family:var(--body);white-space:normal">${esc(c)}</td></tr>`).join("")}</table></div>
+  </section>`;
+}
+
 function method(){
   const src=[["The Koerner Office podcast (Buzzsprout)","https://www.buzzsprout.com/2241079"],["Chris Koerner on side hustles (IBTimes UK)","https://www.ibtimes.co.uk/chris-koerner-400-side-hustle-ideas-1789542"],["The Startup Ideas Podcast, Greg Isenberg (Apple)","https://podcasts.apple.com/us/podcast/id1593424985"],["The Calum Johnson Show (Apple)","https://podcasts.apple.com/do/podcast/the-calum-johnson-show/id1609102004"],["Codie Sanchez: AI service business (Pulse)","https://www.pulse.bot/entrepreneurship/video/build-an-ai-service-biz-18884402-4309-4edc-9e1d-b5d10c0de7ef/"],["Codie Sanchez AI experiment (GoBankingRates)","https://www.gobankingrates.com/?p=2836070"],["Fasthosts: AI receptionist cost","https://www.fasthosts.co.uk/blog/how-much-does-an-ai-receptionist-cost/"],["Powered Now Receptionist (Electrical Times)","https://www.electricaltimes.co.uk/?p=36621"],["Most UK AI agencies hide prices (IT Brief UK)","https://itbrief.co.uk/story/most-uk-ai-automation-agencies-hide-prices-study-finds"],["MTD software (GOV.UK campaign)","https://makingtaxdigital.campaign.gov.uk/making-tax-digital-software"],["864,000 face MTD rules (AAT Comment)","https://www.aatcomment.org.uk/?p=57957"],["MTD for landlords (Landlord Today)","https://www.landlordtoday.co.uk/features/2026/03/making-tax-digital-next-weeks-change-is-just-the-start/"],["Trades lead generation cost UK (Whito)","https://whito.co.uk/research/trades-lead-generation-cost-uk/"],["Review management in Manchester (Kolonell)","https://kolonell.com/en/blog/in-house-or-agency-google-review-management-manchester-2026"],["Agents turn to AI (Property Industry Eye)","https://propertyindustryeye.com/estate-agents-turn-to-ai-amid-rising-compliance-pressures/"],["Lettings agents and AI (Property Reporter)","https://www.propertyreporter.co.uk/over-half-of-lettings-agents-have-no-plans-to-adopt-ai.html"]];
   return `<section class="view">
@@ -433,8 +474,8 @@ function route(){
   const id=(location.hash||"#overview").slice(1);
   const idea=IDEAS.find(i=>i.id===id);
   const app=document.getElementById("app");
-  const cur=idea?id:(["workflow","method"].includes(id)?id:"overview");
-  app.innerHTML= idea?report(idea): cur==="workflow"?workflow(): cur==="method"?method(): overview();
+  const cur=idea?id:(["workflow","method","radar"].includes(id)?id:"overview");
+  app.innerHTML= idea?report(idea): cur==="workflow"?workflow(): cur==="method"?method(): cur==="radar"?radar(): overview();
   renderTabs(cur);
   window.scrollTo({top:0});
 }
