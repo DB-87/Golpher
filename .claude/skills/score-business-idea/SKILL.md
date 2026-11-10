@@ -22,6 +22,9 @@ description: Research and score a new AI / agentic business model for the UK mar
 | auto | Automation level | 10 |
 | reg | UK regulatory fit (PECR, UK GDPR, DMCC Act, AML, FCA, sector rules) | 10 |
 
+## Where to look
+Start with the creators in the `RADAR` array in `venture-lab/index.html` (AI startup ideas, automation builders, boring-business/acquisition, UK lens). Unscored candidates live in `QUEUE`; remove an idea from `QUEUE` once it is scored.
+
 ## Research checklist
 1. Source idea: what the creator actually proposed (episode title / summary).
 2. UK market size and demand signals (ONS, gov.uk, trade bodies).

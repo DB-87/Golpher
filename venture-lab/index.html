@@ -329,7 +329,7 @@ function ring(score,c,size=74){
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${size*.28}">${score}</text></svg>`;
 }
 
-const VIEWS=[{id:"overview",label:"Overview",c:"#d9b46a"},...IDEAS.map(i=>({id:i.id,label:i.name,c:i.color,score:i.score})),{id:"workflow",label:"Launch Workflow",c:"#2dd4bf"},{id:"radar",label:"Research Radar",c:"#84cc16"},{id:"method",label:"Method & Sources",c:"#818cf8"}];
+const VIEWS=[{id:"overview",label:"Overview",c:"#d9b46a"},...IDEAS.map(i=>({id:i.id,label:i.name,c:i.color,score:i.score})),{id:"workflow",label:"Launch Workflow",c:"#2dd4bf"},{id:"radar",label:"Research Radar",c:"#84cc16"},{id:"daily",label:"Daily Reports",c:"#f59e0b"},{id:"method",label:"Method & Sources",c:"#818cf8"}];
 
 function renderTabs(cur){
   document.getElementById("tabs").innerHTML=VIEWS.map(v=>`<a class="tab ${v.score!==undefined&&v.score<50?'dim':''}" href="#${v.id}" style="--c:${v.c}" ${v.id===cur?'aria-current="page"':''}><span class="dot"></span>${esc(v.label)}${v.score!==undefined?`<span class="sc">${v.score}</span>`:''}</a>`).join("");
@@ -457,6 +457,20 @@ function radar(){
   </section>`;
 }
 
+/* Daily runs prepend one object here (newest first). Fields: date, headline, scored[[name,score,verdict]], radar[], next */
+const REPORTS=[
+ {date:"2026-11-10",headline:"Initial research run: 9 models scored, 3 clear the 75 bar.",scored:[["Database Reactivation Agent",81,"Investigate"],["MTD Admin Autopilot",79,"Investigate"],["Review & Reputation Engine",78,"Investigate"]],radar:["Added 14 new creator sources and a 5-idea queue"],next:"Daily automated runs start tomorrow: one queued idea scored per day."}
+];
+function daily(){
+  return `<section class="view">
+  <div><div class="eyebrow">Automated · every morning</div><h2 style="font-size:clamp(24px,3.4vw,34px);margin-top:6px">Daily Reports</h2><p class="small" style="max-width:70ch">Each morning a scheduled run checks the Research Radar for new episodes, scores the next queued idea within the daily usage budget and logs the result here, newest first.</p></div>
+  ${REPORTS.map(r=>`<div class="panel" style="border-left:4px solid #f59e0b"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline"><h3>${esc(r.headline)}</h3><span class="mono small">${esc(r.date)}</span></div>
+   ${r.scored&&r.scored.length?`<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">${r.scored.map(([n,sc,v])=>{const[t]=tier(sc);return `<span class="pill ${t}">${esc(n)} · ${sc}</span>`}).join("")}</div>`:""}
+   ${r.radar&&r.radar.length?`<ul class="list" style="--c:#84cc16;margin-top:12px">${r.radar.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+   ${r.next?`<p class="note">Next: ${esc(r.next)}</p>`:""}</div>`).join("")}
+  </section>`;
+}
+
 function method(){
   const src=[["The Koerner Office podcast (Buzzsprout)","https://www.buzzsprout.com/2241079"],["Chris Koerner on side hustles (IBTimes UK)","https://www.ibtimes.co.uk/chris-koerner-400-side-hustle-ideas-1789542"],["The Startup Ideas Podcast, Greg Isenberg (Apple)","https://podcasts.apple.com/us/podcast/id1593424985"],["The Calum Johnson Show (Apple)","https://podcasts.apple.com/do/podcast/the-calum-johnson-show/id1609102004"],["Codie Sanchez: AI service business (Pulse)","https://www.pulse.bot/entrepreneurship/video/build-an-ai-service-biz-18884402-4309-4edc-9e1d-b5d10c0de7ef/"],["Codie Sanchez AI experiment (GoBankingRates)","https://www.gobankingrates.com/?p=2836070"],["Fasthosts: AI receptionist cost","https://www.fasthosts.co.uk/blog/how-much-does-an-ai-receptionist-cost/"],["Powered Now Receptionist (Electrical Times)","https://www.electricaltimes.co.uk/?p=36621"],["Most UK AI agencies hide prices (IT Brief UK)","https://itbrief.co.uk/story/most-uk-ai-automation-agencies-hide-prices-study-finds"],["MTD software (GOV.UK campaign)","https://makingtaxdigital.campaign.gov.uk/making-tax-digital-software"],["864,000 face MTD rules (AAT Comment)","https://www.aatcomment.org.uk/?p=57957"],["MTD for landlords (Landlord Today)","https://www.landlordtoday.co.uk/features/2026/03/making-tax-digital-next-weeks-change-is-just-the-start/"],["Trades lead generation cost UK (Whito)","https://whito.co.uk/research/trades-lead-generation-cost-uk/"],["Review management in Manchester (Kolonell)","https://kolonell.com/en/blog/in-house-or-agency-google-review-management-manchester-2026"],["Agents turn to AI (Property Industry Eye)","https://propertyindustryeye.com/estate-agents-turn-to-ai-amid-rising-compliance-pressures/"],["Lettings agents and AI (Property Reporter)","https://www.propertyreporter.co.uk/over-half-of-lettings-agents-have-no-plans-to-adopt-ai.html"]];
   return `<section class="view">
@@ -474,8 +488,8 @@ function route(){
   const id=(location.hash||"#overview").slice(1);
   const idea=IDEAS.find(i=>i.id===id);
   const app=document.getElementById("app");
-  const cur=idea?id:(["workflow","method","radar"].includes(id)?id:"overview");
-  app.innerHTML= idea?report(idea): cur==="workflow"?workflow(): cur==="method"?method(): cur==="radar"?radar(): overview();
+  const cur=idea?id:(["workflow","method","radar","daily"].includes(id)?id:"overview");
+  app.innerHTML= idea?report(idea): cur==="workflow"?workflow(): cur==="method"?method(): cur==="radar"?radar(): cur==="daily"?daily(): overview();
   renderTabs(cur);
   window.scrollTo({top:0});
 }
