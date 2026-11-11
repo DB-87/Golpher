@@ -305,6 +305,25 @@ const IDEAS = [
  workflow:[["Offer a paid £495 audit","Find repeatable problems.","Ongoing"],["Turn repeats into products","Fold into the models above.","Month 2+"]],
  stack:["Make / n8n","Claude API","Airtable"]
 },
+{
+ id:"acquire", name:"Boring-Business Buy + AI Upgrade", color:"#84cc16",
+ crit:{demand:7,comp:5,margin:6,speed:4,cost:1,auto:5,reg:6},
+ tagline:"Buy a small, profitable UK service firm from a retiring owner at 3–5× EBITDA, then use AI to strip out admin cost and lift margin.",
+ inspo:"Codie Sanchez (buy-don’t-build), Nick Huber, Acquiring Minds",
+ stats:{Startup:"£50k–£150k equity",Price:"3–5× EBITDA",Margin:"+5–10 pts via AI","First £":"6–12 months",Payback:"3–5 years"},
+ summary:"The supply is real: ExitRadar counts 800,000+ UK companies with directors over 60 and no succession plan, and UK search-fund deals are rising. But this is a capital and deal-making game, not a quick AI offer. Sourcing, due diligence and financing take 6–12 months, you need a deposit plus personal guarantees on debt, and AI only automates the back office. The front-line work (cleaning, MOTs, lettings) stays manual. Good as a 2–3 year follow-on once a services business is generating cash; wrong as a first move.",
+ market:["800k+ UK companies with directors over 60 and no succession plan (ExitRadar 2025)","Only 34% of UK family-business owners have a formal succession plan (Hymans Robertson 2025)","69% of commercial finance brokers say retirement is the main reason owners sell","UK search-fund / ETA deals more than doubled in a year (Gerald Edelman)"],
+ competition:["Search funds and ETA buyers, growing fast in the UK lower mid-market","PE-backed roll-ups in cleaning, FM, accountancy and lettings","Trade buyers who can pay more because of synergies"],
+ econ:[["Example: commercial cleaner, £600k revenue, £120k EBITDA",""],["Price @ 4× EBITDA","£480k"],["Funding: 10% equity, 50% bank, 40% vendor loan","£48k equity"],["AI admin savings (scheduling, invoicing, quoting)","+£30k / yr"],["Debt service (bank + vendor, 5 yrs)","−£105k / yr"],["Net cash to owner after debt, year 1","≈ £45k"]],
+ econNote:"Indicative. Multiples come from advisor marketing (3–5× SME, ~6.4× FM before private discount); real deals vary with recurring contracts and customer concentration.",
+ pros:["Cash flow from day one after completion","Large and growing supply of retiring owners","AI back-office savings go straight to profit","Builds an asset with exit value, not a job"],
+ cons:["Needs £50k+ equity and personal guarantees","6–12 months to find and close a deal; most fall through","Core service delivery cannot be automated","Key-person and customer-concentration risk on takeover"],
+ reg:"TUPE protects staff terms on a business transfer; share purchases inherit all liabilities, so full due diligence is essential. Sector rules may apply (lettings: client money protection, redress scheme, AML supervision). Sellers’ Business Asset Disposal Relief rose to 18% in April 2026, which can make owners keener to accept vendor finance.",
+ niches:[["Commercial cleaning contracts","Recurring contracts, simple ops, lots of retiring owners"],["Lettings rent rolls","Buy the managed portfolio only; AI handles maintenance & tenant comms"],["Small bookkeeping practices","Overlaps with the MTD Autopilot model; client books can be automated"],["Garage / MOT centres","Steady demand; booking and reminders automate well"]],
+ pipeline:["Broker & direct-to-owner sourcing","AI screens listings","Owner call","LOI","Due diligence","Funding & completion","AI admin rollout"],
+ workflow:[["Build the cash base first","Run one of the 75+ models until it pays you.","Months 1–12"],["Set a buy box","Sector, region, £80k–£200k EBITDA, recurring revenue.","Month 12"],["Source deals","Brokers plus AI-drafted letters to owners over 60 (Companies House data).","Months 12–18"],["Close with vendor finance","Aim for 30–50% deferred to share risk with the seller.","Months 18–24"]],
+ stack:["Companies House API","Claude API (screening & diligence summaries)","Xero / scheduling software","Make / n8n"]
+},
 { id:"faceless", name:"Faceless AI YouTube Channels", color:"#ef4444",
   crit:{demand:5,comp:1,margin:5,speed:2,cost:8,auto:8,reg:3},
   tagline:"Mass-produced AI-voiced videos for ad revenue.",
@@ -442,11 +461,11 @@ const RADAR=[
   ["AAT Comment & ICB news","UK bookkeeping trade press: MTD rollout, AML","New"]]}
 ];
 const QUEUE=[
- ["Boring-business buy + AI upgrade","Acquire a small UK service firm (cleaning, MOT, lettings book) and automate its admin","Sanchez, Huber, Acquiring Minds"],
  ["AI ‘employee’ packages for SMEs","Fixed-scope AI admin/inbox/quoting assistant on a monthly fee","KVK Automates, Liam Ottley"],
  ["AI search visibility (AEO) for local firms","Get local businesses cited in ChatGPT / Google AI answers","Authority Hacker, Isenberg"],
  ["YouTube channel management for businesses","Done-for-you video repurposing for SMEs (not faceless ad-farm channels)","Agency niche guides"],
- ["Quote & estimate agent for trades","AI turns photos + notes into priced quotes in minutes","Koerner, Nick Huber"]
+ ["Quote & estimate agent for trades","AI turns photos + notes into priced quotes in minutes","Koerner, Nick Huber"],
+ ["Paid-ads agent for local businesses","AI agent researches pain points, makes Meta ad creative, kills losers and scales winners","Isenberg (with Cody Schneider)"]
 ];
 function radar(){
   return `<section class="view">
@@ -459,6 +478,7 @@ function radar(){
 
 /* Daily runs prepend one object here (newest first). Fields: date, headline, scored[[name,score,verdict]], radar[], next */
 const REPORTS=[
+ {date:"2026-11-11",headline:"Boring-business buy + AI upgrade scored 52: watchlist. Real supply, but too slow and capital-heavy to start with.",scored:[["Boring-Business Buy + AI Upgrade",52,"Watchlist"]],radar:["No radar episodes confirmed from the last 7 days in search results (Liam Ottley posted an agency-coaching rebuild video on 1 Nov)","Queued: paid-ads agent for local businesses (from a recent Isenberg episode with Cody Schneider)","Seen but not queued: voice AI intake lines (overlaps AI Receptionist), dead-domain flipping"],next:"Score “AI ‘employee’ packages for SMEs” (KVK Automates, Liam Ottley)."},
  {date:"2026-11-10",headline:"Initial research run: 9 models scored, 3 clear the 75 bar.",scored:[["Database Reactivation Agent",81,"Investigate"],["MTD Admin Autopilot",79,"Investigate"],["Review & Reputation Engine",78,"Investigate"]],radar:["Added 14 new creator sources and a 5-idea queue"],next:"Daily automated runs start tomorrow: one queued idea scored per day."}
 ];
 function daily(){
@@ -472,7 +492,7 @@ function daily(){
 }
 
 function method(){
-  const src=[["The Koerner Office podcast (Buzzsprout)","https://www.buzzsprout.com/2241079"],["Chris Koerner on side hustles (IBTimes UK)","https://www.ibtimes.co.uk/chris-koerner-400-side-hustle-ideas-1789542"],["The Startup Ideas Podcast, Greg Isenberg (Apple)","https://podcasts.apple.com/us/podcast/id1593424985"],["The Calum Johnson Show (Apple)","https://podcasts.apple.com/do/podcast/the-calum-johnson-show/id1609102004"],["Codie Sanchez: AI service business (Pulse)","https://www.pulse.bot/entrepreneurship/video/build-an-ai-service-biz-18884402-4309-4edc-9e1d-b5d10c0de7ef/"],["Codie Sanchez AI experiment (GoBankingRates)","https://www.gobankingrates.com/?p=2836070"],["Fasthosts: AI receptionist cost","https://www.fasthosts.co.uk/blog/how-much-does-an-ai-receptionist-cost/"],["Powered Now Receptionist (Electrical Times)","https://www.electricaltimes.co.uk/?p=36621"],["Most UK AI agencies hide prices (IT Brief UK)","https://itbrief.co.uk/story/most-uk-ai-automation-agencies-hide-prices-study-finds"],["MTD software (GOV.UK campaign)","https://makingtaxdigital.campaign.gov.uk/making-tax-digital-software"],["864,000 face MTD rules (AAT Comment)","https://www.aatcomment.org.uk/?p=57957"],["MTD for landlords (Landlord Today)","https://www.landlordtoday.co.uk/features/2026/03/making-tax-digital-next-weeks-change-is-just-the-start/"],["Trades lead generation cost UK (Whito)","https://whito.co.uk/research/trades-lead-generation-cost-uk/"],["Review management in Manchester (Kolonell)","https://kolonell.com/en/blog/in-house-or-agency-google-review-management-manchester-2026"],["Agents turn to AI (Property Industry Eye)","https://propertyindustryeye.com/estate-agents-turn-to-ai-amid-rising-compliance-pressures/"],["Lettings agents and AI (Property Reporter)","https://www.propertyreporter.co.uk/over-half-of-lettings-agents-have-no-plans-to-adopt-ai.html"]];
+  const src=[["The Koerner Office podcast (Buzzsprout)","https://www.buzzsprout.com/2241079"],["Chris Koerner on side hustles (IBTimes UK)","https://www.ibtimes.co.uk/chris-koerner-400-side-hustle-ideas-1789542"],["The Startup Ideas Podcast, Greg Isenberg (Apple)","https://podcasts.apple.com/us/podcast/id1593424985"],["The Calum Johnson Show (Apple)","https://podcasts.apple.com/do/podcast/the-calum-johnson-show/id1609102004"],["Codie Sanchez: AI service business (Pulse)","https://www.pulse.bot/entrepreneurship/video/build-an-ai-service-biz-18884402-4309-4edc-9e1d-b5d10c0de7ef/"],["Codie Sanchez AI experiment (GoBankingRates)","https://www.gobankingrates.com/?p=2836070"],["Fasthosts: AI receptionist cost","https://www.fasthosts.co.uk/blog/how-much-does-an-ai-receptionist-cost/"],["Powered Now Receptionist (Electrical Times)","https://www.electricaltimes.co.uk/?p=36621"],["Most UK AI agencies hide prices (IT Brief UK)","https://itbrief.co.uk/story/most-uk-ai-automation-agencies-hide-prices-study-finds"],["MTD software (GOV.UK campaign)","https://makingtaxdigital.campaign.gov.uk/making-tax-digital-software"],["864,000 face MTD rules (AAT Comment)","https://www.aatcomment.org.uk/?p=57957"],["MTD for landlords (Landlord Today)","https://www.landlordtoday.co.uk/features/2026/03/making-tax-digital-next-weeks-change-is-just-the-start/"],["Trades lead generation cost UK (Whito)","https://whito.co.uk/research/trades-lead-generation-cost-uk/"],["Review management in Manchester (Kolonell)","https://kolonell.com/en/blog/in-house-or-agency-google-review-management-manchester-2026"],["Agents turn to AI (Property Industry Eye)","https://propertyindustryeye.com/estate-agents-turn-to-ai-amid-rising-compliance-pressures/"],["Lettings agents and AI (Property Reporter)","https://www.propertyreporter.co.uk/over-half-of-lettings-agents-have-no-plans-to-adopt-ai.html"],["Silver tsunami: SME retirements (Gerald Edelman)","https://www.geraldedelman.com/insights/the-silver-tsunami-what-sme-retirements-mean-for-ma-and-young-entrepreneurs/"],["Growth of search funds (Gerald Edelman)","https://www.geraldedelman.com/insights/the-growth-of-search-fund-activity/"],["UK mid-market deals outlook 2026 (HMT)","https://www.hmtllp.com/?p=2967"],["FM deals insights pack (Cooper Parry)","https://www.cooperparry.com/wp-content/uploads/2025/12/Cooper-Parry-Deals-Insights-Pack-Facilities-Management-December-2025.pdf"],["Retiring owners drive acquisition funding (Financial Reporter)","https://www.financialreporter.co.uk/business-owners-retiring-drives-demand-for-funding-commercial-brokers-say.html"]];
   return `<section class="view">
   <div class="two">
    <div class="panel"><h3>Scoring method</h3><p class="sub">Each criterion scored 0–10, multiplied by its weight, summed to 100</p>
@@ -502,3 +522,4 @@ document.getElementById("themebtn").addEventListener("click",()=>{
 try{const t=localStorage.getItem("vl-theme"); if(t) document.documentElement.dataset.theme=t}catch(e){}
 route();
 </script>
+
